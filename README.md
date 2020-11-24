@@ -2,12 +2,15 @@
 This is a simple application to sync ASUS AURA Devices using the Razer Chroma Broadcast API. This should support all devices that work with AURA. If you have any devices not working be sure to report this. 
 
 
-## HOW TO INSTALL 
+## HOW TO INSTALL AND ENABLE
 - Make sure you have ASUS ARMOURY CRATE (Recommended) or ASUS AURA installed and working. 
 - Make sure you have Razer Synapse 3 installed, updated and functioning. Razer Synapse 2 is not supported as it’s a legacy software that doesn’t support these types of API additions. 
+- In ASUS ARMOURY CRATE, go to the Aura Sync tab. Make sure "In-game Lighting Effects" is enabled.
 - Head over to the releases tab to grab the latest installer. 
 - Install AURACONNECT and restart your machine to make sure it takes effect. 
-- You should be able to control your ASUS AURA Devices Colors with Razer Synapse. 
+- In Razer Synapse, go to the Connect tab, then the Devices subtab. Enable the ASUS device.
+- You should now be able to control your ASUS AURA Devices Colors with Razer Synapse. 
+- NOTE: Do not open ASUS ARMOURY CRATE again. It will try to overtake your Chroma effects.
 
 
 ## BEFORE REPORTING ANY ISSUES! 
