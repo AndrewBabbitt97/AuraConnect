@@ -47,6 +47,11 @@ namespace AuraConnect
         private readonly Stopwatch _performanceMetricsStopwatch;
 
         /// <summary>
+        /// The devices to be ignored
+        /// </summary>
+        private readonly string[] _ignoredDevices;
+
+        /// <summary>
         /// Creates the worker
         /// </summary>
         /// <param name="logger">The logger</param>
@@ -62,6 +67,7 @@ namespace AuraConnect
             _api.ColorChanged += Api_ColorChanged;
             _performanceMetricsEnabled = (bool)_configuration.GetValue(typeof(bool), "PerformanceMetricsEnabled");
             _performanceMetricsStopwatch = new Stopwatch();
+            _ignoredDevices = _configuration.GetSection("IgnoredDevices").Get<string[]>();
         }
 
         /// <summary>
@@ -85,7 +91,14 @@ namespace AuraConnect
             {
                 foreach (var device in deviceProvider.Devices)
                 {
-                    _logger.LogInformation(new EventId(0, "Logging"), $"Found Device: {deviceProvider.Name} - {device.Name} - {device.Lights.Count()} Lights");
+                    if (_ignoredDevices.Contains(device.Name))
+                    {
+                        _logger.LogInformation(new EventId(0, "Logging"), $"Found Device: {deviceProvider.Name} - {device.Name} - {device.Lights.Count()} Lights - Ignoring Device");
+                    }
+                    else
+                    {
+                        _logger.LogInformation(new EventId(0, "Logging"), $"Found Device: {deviceProvider.Name} - {device.Name} - {device.Lights.Count()} Lights");
+                    }
                 }
             }
 
@@ -120,6 +133,11 @@ namespace AuraConnect
             {
                 foreach (var device in deviceProvider.Devices)
                 {
+                    if (_ignoredDevices.Contains(device.Name))
+                    {
+                        continue;
+                    }
+
                     foreach (var light in device.Lights)
                     {
                         light.Color = e.Colors[currentColor];
